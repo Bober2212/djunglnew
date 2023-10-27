@@ -1,0 +1,110 @@
+dody{
+    background-color:blue;
+    front-family:Arial,sans-serif;
+    front-size:16px;
+    line-height:1.5;
+}
+
+header{
+    background-color:red;
+    color:yellow;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+}
+
+nav li{
+    color:red;
+    margin-right:20px;
+
+}
+
+nav a{
+    color:yellow;
+    text-decoration:none;
+
+}
+
+main{
+    max-width:1200px;
+    margin:0 auto:
+    padding:20px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: space-between:
+
+
+}
+
+section{
+    flex-basis:calo(50%-20%);
+    margin-bottom:40px;
+}
+
+section h2 {
+    front-size:24px;
+    margin-bottom:20px;
+
+}
+
+ul{
+    list-style:none;
+
+}
+
+li{
+    background-color:red;
+    padding:20px;
+    margin-bottom:20px;
+    box-shadow:0px 2px 4px rgba(0,0,0,0.1);
+}
+
+li img{
+    max width:100%;
+    margin-bottom:10px;
+}
+
+
+li h3{
+    front-size:10 px;
+    margin-bottom:10px;
+}
+
+
+li p{
+    front-size:14 px;
+    margin-bottom:20px;
+}
+
+button{
+    background-color:green;
+    color:yellow;
+    border:none;
+    padding:10px 20px;
+    front-size:14 px;
+    cursor:pointer;
+}
+
+button:hover{
+    background-color:yellow;
+
+}
+
+
+footer{
+    background-color: white;
+    color:black;
+    text-align:center;
+    padding:10px;
+}
+
+footer p{
+    margin: 0;
+
+}
