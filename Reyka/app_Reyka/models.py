@@ -34,3 +34,24 @@ class Musician(models.Model):
     Genre = models.CharField(max_length=30)
     Birthdate = models.CharField(max_length=30)
     Biography = models.CharField(max_length=30)
+
+class I(models.Model):
+    name = models.CharField(max_length=30)
+    surname = models.CharField(max_length=30)
+    gmail = models.CharField(max_length=30)
+    school = models.CharField(max_length=30)
+
+
+class My_school(models.Model):
+    gmail_school = models.CharField(max_length=30)
+    number_school = models.CharField(max_length=30)
+
+
+class class_school(models.Model):
+    location=models.CharField(max_length=30)
+    number_school = models.CharField(max_length=30)
+    number_class= models.IntegerField(max_length=30)
+    leter_class=models.CharField(max_length=30)
+
+
+

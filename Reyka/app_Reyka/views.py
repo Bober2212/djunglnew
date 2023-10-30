@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .form import Form
 def home(request):
     return render(request,'home.html')
 
@@ -23,6 +24,7 @@ def page3(request):
     return render(request, 'page3.html', context)
 
 def page4(request):
+    form=Form()
     name = ['Bob','fdg','Axs','Dota','Huskar','mamont','Giena','cucumber','apple','green',]
-    context = {'name_user': name}
+    context = {'name_user': name,'form':form}
     return render(request, 'page4.html', context)
