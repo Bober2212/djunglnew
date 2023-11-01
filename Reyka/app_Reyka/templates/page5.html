@@ -5,17 +5,21 @@
     <title>Title</title>
 </head>
 <body>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {%for i in form%}
         <p>{{ i.label_tag}}</p> {{i}}
-        {{ submit }}
         {%endfor%}
+        <input type="submit">
     </form>
   {%for i in name_user%}
 
   {{i}}
 
 {%endfor%}
+    <p>{{surname}}</p>
+    <p>{{phone_number}}</p>
+    <p>{{gmail}}</p>
+
 </body>
 </html>

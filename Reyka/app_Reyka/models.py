@@ -50,8 +50,16 @@ class My_school(models.Model):
 class class_school(models.Model):
     location=models.CharField(max_length=30)
     number_school = models.CharField(max_length=30)
-    number_class= models.IntegerField(max_length=30)
+    number_class= models.IntegerField()
     leter_class=models.CharField(max_length=30)
+
+class User(models.Model):
+    surname = models.CharField(max_length=30)
+    phone_number = models.IntegerField()
+    gmail = models.CharField(max_length=30)
+    create_att = models.DateTimeField(auto_now_add=True)
+    modified_att = models.DateTimeField(auto_now=True)
+    date_of_birth=models.DateField()
 
 
 
