@@ -53,13 +53,13 @@ class class_school(models.Model):
     number_class= models.IntegerField()
     leter_class=models.CharField(max_length=30)
 
-class User(models.Model):
-    surname = models.CharField(max_length=30)
-    phone_number = models.IntegerField()
-    gmail = models.CharField(max_length=30)
-    create_att = models.DateTimeField(auto_now_add=True)
-    modified_att = models.DateTimeField(auto_now=True)
-    date_of_birth=models.DateField()
+#class User(models.Model):
+ #   surname = models.CharField(max_length=30)
+  #  phone_number = models.IntegerField()
+   # gmail = models.CharField(max_length=30)
+    #create_att = models.DateTimeField(auto_now_add=True)
+    #modified_att = models.DateTimeField(auto_now=True)
+    #date_of_birth=models.DateField()
 
 
 

@@ -11,4 +11,9 @@ urlpatterns = [
     path('page4/',views.page4),
     path('page5/',views.page5),
     path('register/',views.register),
-    path('login/',views.login)]
+    path('login/',views.login),
+    path('registerr/',views.newregister),
+    path('loginn/',views.newlogin)
+
+
+]

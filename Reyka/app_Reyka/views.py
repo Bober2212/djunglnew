@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .form import Form,Registration,Login
+from django.contrib.auth import login,authenticate
+from django.contrib.auth.models import User
+from .form import Form,Registration,Login,RegistrationForm,LoginForm
 def home(request):
     return render(request,'home.html')
 
@@ -47,7 +49,7 @@ def page5(request):
     return render(request, 'page5.html', context)
 
 
-def login(request):
+def logins(request):
     if request.method == 'POST':
         form = Login(request.POST)
         if form.is_valid():
@@ -79,3 +81,39 @@ def register(request):
         form = Registration()
     context = {'form': form}
     return render(request, 'register.html', context)
+
+
+def newregister(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password1 = form.cleaned_data['password1']
+            email = form.cleaned_data['email']
+            user=User(username=username, email=email, password=password1)
+            user.save()
+            login(request,user)
+            return redirect('/')
+    else:
+        form = RegistrationForm()
+    context = {'form': form}
+    return render(request, 'newregister.html', context)
+
+
+def newlogin(request):
+    if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            print('1')
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user= authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request,user)
+                return redirect('/')
+            else:
+                return redirect('/loginn')
+    else:
+        form = LoginForm()
+    context = {'form': form}
+    return render(request, 'newlogin.html', context)
