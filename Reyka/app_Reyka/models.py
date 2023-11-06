@@ -63,3 +63,13 @@ class class_school(models.Model):
 
 
 
+class Project(models.Model):
+    name_project = models.CharField(max_length=30)
+    level = models.IntegerField()
+
+class Project_task(models.Model):
+    text_task = models.CharField(max_length=30)
+    create_att = models.DateTimeField()
+    status = models.BooleanField()
+    deadline=models.DateField()
+    project_task = models.ForeignKey(Project, on_delete=models.CASCADE)

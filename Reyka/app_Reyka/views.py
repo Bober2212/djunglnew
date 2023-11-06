@@ -90,7 +90,7 @@ def newregister(request):
             username = form.cleaned_data['username']
             password1 = form.cleaned_data['password1']
             email = form.cleaned_data['email']
-            user=User(username=username, email=email, password=password1)
+            user=User.objects.create_user(username=username, email=email, password=password1)
             user.save()
             login(request,user)
             return redirect('/')
