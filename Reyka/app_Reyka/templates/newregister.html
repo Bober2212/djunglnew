@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="/static/reglog.css" rel="stylesheet">
 </head>
-<body>
+<body class="about">
         <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {%for i in form%}
