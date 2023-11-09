@@ -32,3 +32,11 @@ class LoginForm(AuthenticationForm):
         fields=['username','password']
 
 
+
+
+class Projectt(forms.Form):
+    name_project=forms.CharField()
+    level=forms.IntegerField()
+
+
+

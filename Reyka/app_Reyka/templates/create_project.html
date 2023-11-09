@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/static/reglog.css" rel="stylesheet">
+</head>
+<body class="about">
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {%for i in form%}
+        <p>{{ i.label_tag}}</p> {{i}}
+        {%endfor%}
+        <input type="submit">
+    </form>
+</body>
+</html>

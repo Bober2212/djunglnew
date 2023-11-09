@@ -73,3 +73,35 @@ class Project_task(models.Model):
     status = models.BooleanField()
     deadline=models.DateField()
     project_task = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+
+class student(models.Model):
+    name = models.CharField(max_length=30)
+    surname = models.CharField(max_length=30)
+    number_studens_card = models.IntegerField()
+    gmail = models.CharField(max_length=30)
+
+class group(models.Model):
+    studens_group = models.CharField(max_length=30)
+    group_number= models.CharField(max_length=30)
+    cabinete_fences=models.IntegerField()
+
+class card_dostup(models.Model):
+    date_issue = models.DateField()
+    close_date = models.DateField()
+    price= models.IntegerField()
+    student = models.ForeignKey(student, on_delete=models.CASCADE)
+
+class library_literatura(models.Model):
+    name= models.CharField(max_length=30)
+    ganr = models.CharField(max_length=30)
+    year = models.IntegerField()
+    date_publication=models.DateField()
+
+class proces_taking(models.Model):
+    name_literature= models.CharField(max_length=30)
+    number_studens_card = models.IntegerField()
+    date_issue = models.DateField()
+    name_surname=models.DateField()
+    library_card = models.ForeignKey(card_dostup, on_delete=models.CASCADE)
+    library = models.ForeignKey(library_literatura, on_delete=models.CASCADE)

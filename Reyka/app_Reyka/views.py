@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import login,authenticate
 from django.contrib.auth.models import User
-from .form import Form,Registration,Login,RegistrationForm,LoginForm
+from .models import Project
+from .form import Form,Registration,Login,RegistrationForm,LoginForm,Projectt
 def home(request):
     return render(request,'home.html')
 
@@ -117,3 +118,18 @@ def newlogin(request):
         form = LoginForm()
     context = {'form': form}
     return render(request, 'newlogin.html', context)
+
+
+def projects(request):
+    if request.method == 'POST':
+        form = Projectt(request.POST)
+        if form.is_valid():
+            name_project = form.cleaned_data['name_project']
+            level = form.cleaned_data['level']
+            project=Project(name_project=name_project, level=level)
+            project.save()
+            return redirect('/')
+    else:
+        form = Projectt()
+    context = {'form': form}
+    return render(request, 'create_project.html', context)
