@@ -2,10 +2,12 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import login,authenticate
 from django.contrib.auth.models import User
-from .models import Project
-from .form import Form,Registration,Login,RegistrationForm,LoginForm,Projectt
+from .models import Project,Project_task
+from .form import Form,Registration,Login,RegistrationForm,LoginForm,Projectt,TaskCreateForm
 def home(request):
-    return render(request,'home.html')
+    projects=Project.objects.all()
+    contex={'projects':projects}
+    return render(request,'home.html',contex)
 
 
 def page2(request):
@@ -133,3 +135,22 @@ def projects(request):
         form = Projectt()
     context = {'form': form}
     return render(request, 'create_project.html', context)
+
+
+def task(request,**kwargs):
+    project=Project.objects.get(id=kwargs['id'])
+    if request.method =='POST':
+        form=TaskCreateForm()
+        if form.is_valid():
+            text_task=form.cleaned_data['text_task']
+            status = form.cleaned_data['status']
+            deadline = form.cleaned_data['deadline']
+            task=Project_task(text_task=text_task,status=status,deadline=deadline)
+            task.save()
+            return redirect('/')
+    else:
+        tasks=Project_task.objects.filter(project_task=project)
+        form=TaskCreateForm()
+        context = {'project': project,'tasks': tasks,'form': form}
+    return render(request, 'task.html', context)
+

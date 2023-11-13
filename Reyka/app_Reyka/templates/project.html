@@ -5,10 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-    {% for i in projects %}
-  <h1>{{i.name_project}}</h1>
-    <a href="/task/{{i.id}}">{{i.level}}</a>
-    {%endfor%}
+  <h1>{{project.name}}</h1>
+  {%for i in tasks%}
+    <h1>{{i.text_task}}</h1>
+{%endfor%}
 
 </body>
 </html>

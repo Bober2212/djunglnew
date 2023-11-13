@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from .models import Project_task
 
 class Form(forms.Form):
     surname=forms.CharField()
@@ -40,3 +41,7 @@ class Projectt(forms.Form):
 
 
 
+class TaskCreateForm(forms.ModelForm):
+    class Meta:
+        model=Project_task
+        fields=['text_task','status','deadline']

@@ -14,7 +14,8 @@ urlpatterns = [
     path('login/',views.login),
     path('registerr/',views.newregister),
     path('loginn/',views.newlogin),
-    path('create_project/',views.newlogin)
+    path('create_project/',views.projects),
+    path('task/<int:id>',views.task)
 
 
 ]
