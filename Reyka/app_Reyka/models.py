@@ -69,7 +69,7 @@ class Project(models.Model):
 
 class Project_task(models.Model):
     text_task = models.CharField(max_length=30)
-    create_att = models.DateTimeField()
+    create_att = models.DateTimeField(auto_now=True)
     status = models.BooleanField()
     deadline=models.DateField()
     project_task = models.ForeignKey(Project, on_delete=models.CASCADE)

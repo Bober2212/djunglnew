@@ -140,17 +140,17 @@ def projects(request):
 def task(request,**kwargs):
     project=Project.objects.get(id=kwargs['id'])
     if request.method =='POST':
-        form=TaskCreateForm()
+        form=TaskCreateForm(request.POST)
         if form.is_valid():
             text_task=form.cleaned_data['text_task']
             status = form.cleaned_data['status']
             deadline = form.cleaned_data['deadline']
-            task=Project_task(text_task=text_task,status=status,deadline=deadline)
+            task=Project_task(text_task=text_task,status=status,deadline=deadline,project_task=project)
             task.save()
             return redirect('/')
     else:
         tasks=Project_task.objects.filter(project_task=project)
         form=TaskCreateForm()
         context = {'project': project,'tasks': tasks,'form': form}
-    return render(request, 'task.html', context)
+        return render(request, 'task.html', context)
 

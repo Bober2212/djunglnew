@@ -5,8 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-        {%for i in task%}
+        {%for i in tasks%}
         <p>{{ i.text_task}}</p>
+        <p>{{ i.status}}</p>
+        <p>{{ i.deadline}}</p>
         {%endfor%}
         <form method="post">
         <input type="submit">
