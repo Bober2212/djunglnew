@@ -62,13 +62,17 @@ class class_school(models.Model):
     #date_of_birth=models.DateField()
 
 
+class Abstract(models.Model):
+    text = models.CharField(max_length=30)
 
-class Project(models.Model):
-    name_project = models.CharField(max_length=30)
+    class Meta:
+        abstract=True
+
+class Project(Abstract):
+
     level = models.IntegerField()
 
-class Project_task(models.Model):
-    text_task = models.CharField(max_length=30)
+class Project_task(Abstract):
     create_att = models.DateTimeField(auto_now=True)
     status = models.BooleanField()
     deadline=models.DateField()

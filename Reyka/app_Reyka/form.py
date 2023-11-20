@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from .models import Project_task
+from .models import Project_task,Project
 
 class Form(forms.Form):
     surname=forms.CharField()
@@ -27,6 +27,7 @@ class RegistrationForm(UserCreationForm):
         model=User
         fields=['username','email','password1','password2']
 
+
 class LoginForm(AuthenticationForm):
     class Meta:
         model=User
@@ -35,13 +36,15 @@ class LoginForm(AuthenticationForm):
 
 
 
-class Projectt(forms.Form):
-    name_project=forms.CharField()
-    level=forms.IntegerField()
 
+
+class Projectt(forms.ModelForm):
+    class Meta:
+        model=Project
+        fields=['text','level']
 
 
 class TaskCreateForm(forms.ModelForm):
     class Meta:
         model=Project_task
-        fields=['text_task','status','deadline']
+        fields=['text','status','deadline']

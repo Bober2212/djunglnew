@@ -3,12 +3,17 @@ from django.http import HttpResponse
 from django.contrib.auth import login,authenticate
 from django.contrib.auth.models import User
 from .models import Project,Project_task
+from django.views.generic.list import ListView
 from .form import Form,Registration,Login,RegistrationForm,LoginForm,Projectt,TaskCreateForm
-def home(request):
-    projects=Project.objects.all()
-    contex={'projects':projects}
-    return render(request,'home.html',contex)
+from django.views.generic.edit import CreateView,UpdateView
+from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView
 
+
+class Home(ListView):
+    template_name='home.html'
+    model=Project
+    context_object_name='projects'
 
 def page2(request):
     return HttpResponse('Hello')
@@ -86,55 +91,37 @@ def register(request):
     return render(request, 'register.html', context)
 
 
-def newregister(request):
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password1 = form.cleaned_data['password1']
-            email = form.cleaned_data['email']
-            user=User.objects.create_user(username=username, email=email, password=password1)
-            user.save()
-            login(request,user)
-            return redirect('/')
-    else:
-        form = RegistrationForm()
-    context = {'form': form}
-    return render(request, 'newregister.html', context)
 
 
-def newlogin(request):
-    if request.method == 'POST':
-        form = LoginForm(data=request.POST)
-        if form.is_valid():
-            print('1')
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user= authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request,user)
-                return redirect('/')
-            else:
-                return redirect('/loginn')
-    else:
-        form = LoginForm()
-    context = {'form': form}
-    return render(request, 'newlogin.html', context)
+class Register(CreateView):
+    template_name = 'newregister.html'
+    model= User
+    form_class=RegistrationForm
+    success_url = reverse_lazy('home')
 
 
-def projects(request):
-    if request.method == 'POST':
-        form = Projectt(request.POST)
-        if form.is_valid():
-            name_project = form.cleaned_data['name_project']
-            level = form.cleaned_data['level']
-            project=Project(name_project=name_project, level=level)
-            project.save()
-            return redirect('/')
-    else:
-        form = Projectt()
-    context = {'form': form}
-    return render(request, 'create_project.html', context)
+
+
+class LoginPage(LoginView):
+    template_name = 'newlogin.html'
+    model= User
+    form_class=LoginForm
+    redirect_authenticated_user=True
+
+
+
+
+class Projects(CreateView):
+    template_name = 'create_project.html'
+    model= Project
+    form_class=Projectt
+    success_url = reverse_lazy('home')
+
+class projects_redict(UpdateView):
+    template_name = 'project_redict.html'
+    model= Project
+    form_class=Projectt
+    success_url = reverse_lazy('home')
 
 
 def task(request,**kwargs):
