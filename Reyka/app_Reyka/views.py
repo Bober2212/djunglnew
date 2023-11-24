@@ -4,9 +4,10 @@ from django.contrib.auth import login,authenticate
 from django.contrib.auth.models import User
 from .models import Project,Project_task
 from django.views.generic.list import ListView
-from .form import Form,Registration,Login,RegistrationForm,LoginForm,Projectt,TaskCreateForm
-from django.views.generic.edit import CreateView,UpdateView
+from .form import Form,Registration,Login,RegistrationForm,LoginForm,Projectt,TaskCreateForm,TestForm
+from django.views.generic.edit import CreateView,UpdateView,FormView
 from django.urls import reverse_lazy
+from django.http import HttpResponse
 from django.contrib.auth.views import LoginView
 
 
@@ -14,6 +15,10 @@ class Home(ListView):
     template_name='home.html'
     model=Project
     context_object_name='projects'
+
+    def get_context_data(self, object_list):
+        context=super().get_context_data(self,**kwargs)
+
 
 def page2(request):
     return HttpResponse('Hello')
@@ -123,6 +128,12 @@ class projects_redict(UpdateView):
     form_class=Projectt
     success_url = reverse_lazy('home')
 
+class task_redict(UpdateView):
+    template_name = 'task_redict.html'
+    model= Project_task
+    form_class=TaskCreateForm
+    success_url = reverse_lazy('home')
+
 
 def task(request,**kwargs):
     project=Project.objects.get(id=kwargs['id'])
@@ -141,3 +152,15 @@ def task(request,**kwargs):
         context = {'project': project,'tasks': tasks,'form': form}
         return render(request, 'task.html', context)
 
+
+class TestsForm(FormView):
+    template_name = 'test.html'
+    form_class=TestForm
+    success_url = reverse_lazy('/')
+
+
+    def form_valid(self,form):
+        response=HttpResponse()
+        response.set_cookie('name',form.cleaned_data['name'])
+        return super().form_valid(form)
+        request.COOKIES['name']

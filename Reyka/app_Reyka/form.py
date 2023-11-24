@@ -48,3 +48,6 @@ class TaskCreateForm(forms.ModelForm):
     class Meta:
         model=Project_task
         fields=['text','status','deadline']
+
+class TestForm(forms.Form):
+    name=forms.CharField()

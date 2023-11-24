@@ -15,7 +15,9 @@ urlpatterns = [
     path('registerr',views.Register.as_view(),name='reg'),
     path('login/',views.LoginPage.as_view(),name='login'),
     path('create_project/',views.Projects.as_view(),name='crpr'),
+    path('test/',views.TestsForm.as_view(),name='/'),
     path('projects_redict/<int:pk>/',views.projects_redict.as_view()),
+    path('task_redict/<int:pk>/',views.task_redict.as_view()),
     path('task/<int:id>',views.task)
 
 
