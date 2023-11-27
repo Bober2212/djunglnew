@@ -18,6 +18,7 @@ urlpatterns = [
     path('test/',views.TestsForm.as_view(),name='/'),
     path('projects_redict/<int:pk>/',views.projects_redict.as_view()),
     path('task_redict/<int:pk>/',views.task_redict.as_view()),
+    path('text/',views.gob.as_view()),
     path('task/<int:id>',views.task)
 
 

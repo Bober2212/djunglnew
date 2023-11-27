@@ -9,7 +9,7 @@ from django.views.generic.edit import CreateView,UpdateView,FormView
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.contrib.auth.views import LoginView
-
+from django.views.generic.base import TemplateView
 
 class Home(ListView):
     template_name='home.html'
@@ -164,3 +164,17 @@ class TestsForm(FormView):
         response.set_cookie('name',form.cleaned_data['name'])
         return super().form_valid(form)
         request.COOKIES['name']
+
+
+class gob(TemplateView):
+    template_name = 'testss.html'
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data(**kwargs)
+        context['title']='gob'
+        return context
+
+    def post(self, request):
+        data=request.POST
+        print(data['text'])
+
+
