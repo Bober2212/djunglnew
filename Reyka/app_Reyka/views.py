@@ -7,7 +7,7 @@ from django.views.generic.list import ListView
 from .form import Form,Registration,Login,RegistrationForm,LoginForm,Projectt,TaskCreateForm,TestForm
 from django.views.generic.edit import CreateView,UpdateView,FormView
 from django.urls import reverse_lazy
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from django.contrib.auth.views import LoginView
 from django.views.generic.base import TemplateView
 
@@ -135,22 +135,21 @@ class task_redict(UpdateView):
     success_url = reverse_lazy('home')
 
 
-def task(request,**kwargs):
-    project=Project.objects.get(id=kwargs['id'])
-    if request.method =='POST':
-        form=TaskCreateForm(request.POST)
-        if form.is_valid():
-            text_task=form.cleaned_data['text_task']
-            status = form.cleaned_data['status']
-            deadline = form.cleaned_data['deadline']
-            task=Project_task(text_task=text_task,status=status,deadline=deadline,project_task=project)
-            task.save()
-            return redirect('/')
-    else:
-        tasks=Project_task.objects.filter(project_task=project)
-        form=TaskCreateForm()
-        context = {'project': project,'tasks': tasks,'form': form}
-        return render(request, 'task.html', context)
+
+
+class taskss(CreateView):
+    template_name = 'task.html'
+    model= Project
+    form_class=TaskCreateForm
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data(**kwargs)
+        project=Project.objects.get(id=self.kwargs['id'])
+        tasks = Project_task.objects.filter(project_task=project)
+        context ['project']=project
+        context['tasks'] = tasks
+        return context
 
 
 class TestsForm(FormView):
@@ -176,5 +175,6 @@ class gob(TemplateView):
     def post(self, request):
         data=request.POST
         print(data['text'])
+        return JsonResponse({'resp':'ok'},safe=False)
 
 

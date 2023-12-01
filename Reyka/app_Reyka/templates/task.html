@@ -10,13 +10,13 @@
         <p>{{ i.status}}</p>
         <p>{{ i.deadline}}</p>
         {%endfor%}
-        <form method="post">
-        <input type="submit">
+
 
           {% csrf_token %}
         {{form}}
+    <input id='btn' type="submit">
 
-    </form>
+
 
 </body>
 </html>

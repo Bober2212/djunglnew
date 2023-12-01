@@ -7,8 +7,10 @@ function test(){
             'data': {
                 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
                 'text': $('#inp').val()
+
             },
             'success': function(data){
+            document.getElementById('tite').innerHTML += data['resp']
 
             }
         })

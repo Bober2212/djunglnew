@@ -48,6 +48,10 @@ class TaskCreateForm(forms.ModelForm):
     class Meta:
         model=Project_task
         fields=['text','status','deadline']
+        widgets={'text':forms.TextInput(attrs={'class':'stylel','id':'text'}),
+                'status': forms.CheckboxInput(attrs={'status': 'stylel', 'id': 'status'}),
+                'deadline': forms.DateInput(attrs={'deadline': 'stylel', 'id': 'deadline'})
+                }
 
 class TestForm(forms.Form):
     name=forms.CharField()
