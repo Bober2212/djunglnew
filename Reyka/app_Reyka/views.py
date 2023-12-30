@@ -1,8 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import login,authenticate
-from django.contrib.auth.models import User
-from .models import Project,Project_task
+from .models import Project,Project_task,Photo,User
 from django.views.generic.list import ListView
 from .form import Form,Registration,Login,RegistrationForm,LoginForm,Projectt,TaskCreateForm,TestForm
 from django.views.generic.edit import CreateView,UpdateView,FormView
@@ -10,14 +9,37 @@ from django.urls import reverse_lazy
 from django.http import HttpResponse,JsonResponse
 from django.contrib.auth.views import LoginView
 from django.views.generic.base import TemplateView
+from django.template.loader import render_to_string
+from django.core.files import File
+from pathlib import Path
+from .serializers import UserSeriaLizer
+
+
+class hh(TemplateView):
+    template_name = 'hh.html'
+    def post(self, request):
+        data=request.POST
+        #resp=render_to_string('responce.html',{'username':data['username'],'password':data['password'],'gmail':data['gmail']})
+        with open('app_Reyka/static/images/file.png','wb') as photo:
+            photo.write(request.FILES['photo'].read())
+        path = Path('app_Reyka/static/images/file.png')
+        with path.open(mode='rb') as img:
+            file=File(img,name=img.name)
+            photo=Photo(image=file)
+            photo.save()
+        return JsonResponse(1,safe=False)
+
+
 
 class Home(ListView):
     template_name='home.html'
     model=Project
-    context_object_name='projects'
+    paginate_by = 1
 
-    def get_context_data(self, object_list):
-        context=super().get_context_data(self,**kwargs)
+    # context_object_name='projects'
+    #
+    # def get_context_data(self, object_list):
+    #     context=super().get_context_data(self,**kwargs)
 
 
 def page2(request):
@@ -137,10 +159,10 @@ class task_redict(UpdateView):
 
 
 
-class taskss(CreateView):
-    template_name = 'task.html'
+class taskss(TemplateView):
+    template_name = 'project.html'
     model= Project
-    form_class=TaskCreateForm
+
     success_url = reverse_lazy('home')
 
     def get_context_data(self,**kwargs):
@@ -149,8 +171,23 @@ class taskss(CreateView):
         tasks = Project_task.objects.filter(project_task=project)
         context ['project']=project
         context['tasks'] = tasks
+        context['form'] = TaskCreateForm()
         return context
 
+    def post(self, request,**kwargs):
+        data=request.POST
+        if len(data.keys()) == 4:
+            project=Project.objects.get(id=self.kwargs['id'])
+            task=Project_task(text=data['text'],status=True if data['status']=='on'else False,deadline=data['deadline'],project_task=project)
+            task.save()
+            project_task=render_to_string('responcee.html',{'i':task,'project':project})
+            return JsonResponse(project_task,safe=False)
+        if len(data.keys()) == 2:
+            task=Project_task.objects.get(id=int(data['id']))
+            resp = render_to_string('edit_form.html',{'form':TaskCreateForm(initial={'text':task.text,
+                                                                                     'status':task.status,
+                                                                                     'deadline':task.deadline})})
+            return JsonResponse(resp,safe=False)
 
 class TestsForm(FormView):
     template_name = 'test.html'
@@ -178,3 +215,10 @@ class gob(TemplateView):
         return JsonResponse({'resp':'ok'},safe=False)
 
 
+class bb(TemplateView):
+    template_name = 'testss.html'
+
+    def get(self, request, *args):
+        user=User.objects.all()
+        serializers=UserSeriaLizer(user,many=True)
+        return JsonResponse(serializers.data,safe=False)

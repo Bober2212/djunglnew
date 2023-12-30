@@ -14,7 +14,7 @@
 
           {% csrf_token %}
         {{form}}
-    <input id='btn' type="submit">
+    <input id='btn' type="submit" data-url="/task/{{task.id}}">
 
 
 

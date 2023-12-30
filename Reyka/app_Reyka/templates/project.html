@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="/static/js/project.js"></script>
 </head>
 <body>
-  <h1>{{project.name}}</h1>
+  <h1>{{project.name}} <a href="/projects_redict/{{project.id}}"></a></h1>
+  <div id="btns">
   {%for i in tasks%}
-    <h1>{{i.text_task}}</h1>
+    <div id='task{{ i.id }}'>
+    <h1>{{i.text}} <button data-url=/task/{{project.id}}/ class="edit_button" id="{{i.id}}">Button</button></h1>
+    </div>
 {%endfor%}
+  </div>
+{%csrf_token%}
+{{form}}
+<input id="btn" type="submit" data-url="/task/{{project.id}}/">
 
 </body>
 </html>

@@ -19,7 +19,9 @@ urlpatterns = [
     path('projects_redict/<int:pk>/',views.projects_redict.as_view()),
     path('task_redict/<int:pk>/',views.task_redict.as_view()),
     path('text/',views.gob.as_view()),
-    path('task/<int:id>',views.taskss.as_view(),name='crpr')
+    path('hh/',views.hh.as_view()),
+    path('bb/',views.bb.as_view()),
+    path('task/<int:id>/',views.taskss.as_view(),name='crpr')
 
 
 ]

@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
@@ -109,3 +109,10 @@ class proces_taking(models.Model):
     name_surname=models.DateField()
     library_card = models.ForeignKey(card_dostup, on_delete=models.CASCADE)
     library = models.ForeignKey(library_literatura, on_delete=models.CASCADE)
+
+class Photo(models.Model):
+    image = models.ImageField(upload_to='app_Reyka/static/images')
+
+class User(AbstractUser):
+    avatar = models.ImageField(upload_to='app_Reyka/static/images', default='app_Reyka/static/images/default.png')
+    status = models.CharField(max_length=100)
